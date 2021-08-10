@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>com.yangping.plugin.okprofiler</id>
+    <name>OK Profiler</name>
+    <vendor email="zhaoyc1992@foxmail.com" url="http://www.tuya.com">tuya</vendor>
+
+    <description><![CDATA[
+   A Plugin for Android Studio can show detail request info form the Okhttp<br>
+    ]]></description>
+
+    <!-- please see https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.android</depends>
+    <depends>com.intellij.modules.androidstudio</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <defaultProjectTypeProvider type="Android"/>
+        <toolWindow id="OkProfiler" secondary="true" icon="/icons/net.png" anchor="bottom"
+                    factoryClass="com.yangping.profiler.OKProfilerWindowFactory"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>

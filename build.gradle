@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.6.3'
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
+}
+
+group 'com.yangping.plugin'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+if (!hasProperty('StudioCompilePath')) {
+    throw new GradleException("No StudioCompilePath value was set, please create gradle.properties file")
+}
+
+
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    compileOnly fileTree(dir: "$StudioCompilePath/plugins/android/lib", include: ['*.jar'])
+    compileOnly fileTree(dir: "$StudioCompilePath/lib", include: ['*.jar'])
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version = '203.7717.56'
+    plugins 'android'
+//    intellij.localPath = StudioCompilePath
+}
+
+runIde {
+    ideDirectory '/Applications/Android Studio.app/Contents'
+}
+patchPluginXml {
+    changeNotes """
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>"""
+}
+
+task(verifySetup) {
+    doLast {
+        def ideaJar = "$StudioCompilePath/lib/idea.jar"
+        if (!file(ideaJar).exists()) {
+            throw new GradleException("$ideaJar not found, set StudioCompilePath in gradle.properties")
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava.dependsOn verifySetup
+
