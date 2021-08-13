@@ -15,7 +15,7 @@
  */
 package com.yangping.profiler.data
 
-import com.yangping.profiler.cache.Resources
+import com.yangping.profiler.other.Resources
 import java.text.SimpleDateFormat
 import java.util.*
 

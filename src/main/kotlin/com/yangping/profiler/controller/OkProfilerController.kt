@@ -22,14 +22,14 @@ import javax.swing.SwingUtilities
 /**
  * @author yangping
  */
-class OkProfilerController(val mainForm:OKProfiler,val project: Project,val preferences: PluginPreferences) {
+class OkProfilerController(val mainForm:OKProfiler, project: Project,val preferences: PluginPreferences) {
 
     private val logCatListener = AndroidLogcatService.getInstance()
 
     private var selectedDevice: IDevice? = null
     private var selectedProcess: DebugProcess? = null
 
-//    val requestTableController = FormViewController(mainForm, preferences, project)
+    val requestTableController = FormViewController(mainForm, preferences, project)
 
     private val executor = Executors.newFixedThreadPool(1)
 
@@ -46,9 +46,9 @@ class OkProfilerController(val mainForm:OKProfiler,val project: Project,val pref
                         val debugRequest = RequestDataSource.getRequestFromMessage(id, messageType, line.message)
                         if (debugRequest != null) {
                             try {
-//                                SwingUtilities.invokeLater {
-//                                    requestTableController.insertOrUpdate(debugRequest)
-//                                }
+                                SwingUtilities.invokeLater {
+                                    requestTableController.insertOrUpdate(debugRequest)
+                                }
                             } catch (e: Exception) {
                                 e.printStackTrace()
                             }
@@ -128,7 +128,7 @@ class OkProfilerController(val mainForm:OKProfiler,val project: Project,val pref
         val selectedDeviceName = preferences.getSelectedDevice()
         var selectedDevice: IDevice? = null
         if (devices != null) {
-//            mainForm.mainContainer.isVisible = true
+            mainForm.mainContainer.isVisible = true
             val debugDevices = ArrayList<DebugDevice>()
             for (device in devices) {
                 val debugDevice = DebugDevice(device)
@@ -146,7 +146,7 @@ class OkProfilerController(val mainForm:OKProfiler,val project: Project,val pref
                     val device = list.selectedItem as DebugDevice
                     attachToDevice(device.device)
                     preferences.setSelectedDevice(device.device.name)
-//                    requestTableController.clear()
+                    requestTableController.clear()
                 }
             }
             if (selectedDevice != null) {
@@ -157,7 +157,7 @@ class OkProfilerController(val mainForm:OKProfiler,val project: Project,val pref
                 }
             }
         } else {
-//            mainForm.mainContainer.isVisible = false
+            mainForm.mainContainer.isVisible = false
         }
     }
 
@@ -193,7 +193,7 @@ class OkProfilerController(val mainForm:OKProfiler,val project: Project,val pref
                 defaultSelection = client
                 selectedProcess = client
                 log("selectedProcess $defaultSelection")
-//                requestTableController.clear()
+                requestTableController.clear()
 //                requestTableController.addAll(RequestDataSource.getRequestList(client.getClientKey()))
             }
         }

@@ -13,23 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.yangping.profiler.cache
+package com.yangping.profiler.other
 
-import com.intellij.openapi.util.IconLoader
-import com.yangping.profiler.controller.OkProfilerController
-import java.io.FileNotFoundException
-import java.util.*
-import javax.swing.Icon
+import com.intellij.ui.components.JBPanel
+import java.awt.LayoutManager
 
-class Resources {
-    companion object {
-        fun getString(key: String): String {
-            val bundle: ResourceBundle = ResourceBundle.getBundle(OkProfilerController.STRING_BUNDLE)
-            return bundle.getString(key)
-        }
-
-        fun getIcon(key: String) : Icon {
-            return IconLoader.findIcon("/icons/$key") ?: throw FileNotFoundException("Icon $key not found")
-        }
-    }
-}
+class JBKPanel(layoutManager: LayoutManager) : JBPanel<JBKPanel>(layoutManager)

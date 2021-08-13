@@ -10,6 +10,8 @@ public class OKProfiler {
     private JComboBox<DebugDevice> deviceList;
     private JComboBox<DebugProcess> appList;
     private JPanel buttonContainer;
+    private JPanel mainContainer;
+    private JEditorPane initialHtml;
 
     public OKProfiler() {
     }
@@ -24,5 +26,9 @@ public class OKProfiler {
 
     public JComboBox<DebugDevice> getDeviceList() {
         return deviceList;
+    }
+
+    public JPanel getMainContainer() {
+        return mainContainer;
     }
 }
